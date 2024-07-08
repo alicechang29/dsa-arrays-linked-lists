@@ -147,22 +147,21 @@ class LLStr {
   getAt(idx: number): string {
     // if head is 0, traverse the list
 
-    if(idx > this.length - 1 || idx < 0 || this.head === null){
+    if(idx > this.length - 1 || idx < 0){
       throw new IndexError;
     }
 
     let count: number = 0;
     let currNode = this.head;
 
-    if(currNode !== null){
-
-      while(count < idx){
-
-        currNode = currNode.next!;
-        count++;
-      }
+    while (count < idx && currNode !== null) {
+      currNode = currNode.next;
+      count++;
     }
-    return currNode.val;
+
+    // NOTE: safer to assert here because we've defined the bounds earlier
+    // COOL: can use the `as` operator to tell TS what the data type will be
+    return currNode!.val;
   }
 
   /** setAt(idx, val): set val at idx to val.
@@ -171,6 +170,19 @@ class LLStr {
    **/
 
   setAt(idx: number, val: string): void {
+
+    if (idx < 0 || idx > this.length - 1 || (this.head === null && idx > 0)) {
+      throw new IndexError();
+    }
+
+    let currNode = this.head!;
+    for (let currPlace: number = 0; currPlace <= idx; currPlace++) {
+      if (currPlace === idx) {
+        currNode.val = val;
+        break;
+      }
+      currNode = currNode.next!;
+    }
   }
 
   /** insertAt(idx, val): add node w/val before idx.
