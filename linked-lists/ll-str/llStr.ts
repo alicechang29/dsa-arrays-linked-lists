@@ -83,7 +83,17 @@ class LLStr {
     }
 
     let poppedVal: string = '';
-    //if non-empty list
+
+    //if only 1 node in the list
+    if(this.head === this.tail){
+      poppedVal = this.head.val;
+
+      this.head = null;
+      this.tail = null;
+
+    }
+
+    //if more than 1 node in the list
     if(this.tail !== null){
       const currTail = this.tail;
 
@@ -93,6 +103,7 @@ class LLStr {
 
         if(currNode.next === currTail){
           this.tail = currNode;
+          this.length--;
           return currTail.val;
         }
         currNode = currNode.next;
@@ -124,7 +135,7 @@ class LLStr {
 
     this.head = currNode.next;
 
-    length--;
+    this.length--;
     return currNode.val;
   }
 
@@ -134,7 +145,24 @@ class LLStr {
    **/
 
   getAt(idx: number): string {
-    return "x";
+    // if head is 0, traverse the list
+
+    if(idx > this.length - 1 || idx < 0 || this.head === null){
+      throw new IndexError;
+    }
+
+    let count: number = 0;
+    let currNode = this.head;
+
+    if(currNode !== null){
+
+      while(count < idx){
+
+        currNode = currNode.next!;
+        count++;
+      }
+    }
+    return currNode.val;
   }
 
   /** setAt(idx, val): set val at idx to val.
