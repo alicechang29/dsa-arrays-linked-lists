@@ -40,6 +40,21 @@ class LLStr {
   /** push(val): add new value to end of list. */
 
   push(val: string): void {
+
+    const newNode = new NodeStr(val);
+
+    //if list is not empty
+    if(this.tail !== null){
+      this.tail.next = newNode;
+    }
+
+    //if list is empty
+    if(this.head === null){
+      this.head = newNode;
+    }
+
+    this.tail = newNode;
+
   }
 
   /** unshift(val): add new value to start of list. */
