@@ -76,7 +76,28 @@ class LLStr {
    **/
 
   pop(): string {
-    return "x";
+
+    //if empty list
+    if(this.head === null){
+      throw new IndexError();
+    }
+
+    //if non-empty list
+    if(this.tail !== null){
+      const currTail = this.tail;
+
+      let currNode: NodeStr | null = this.head;
+
+      while(currNode !== null){
+
+        if(currNode.next === currTail){
+          this.tail = currNode;
+          return currTail.val;
+        }
+        currNode = currNode.next;
+      }
+      return currTail.val;
+    }
   }
 
   /** shift(): return & remove first item.
