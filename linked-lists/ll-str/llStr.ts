@@ -54,12 +54,20 @@ class LLStr {
     }
 
     this.tail = newNode;
-
+    this.length++;
   }
 
   /** unshift(val): add new value to start of list. */
 
   unshift(val: string): void {
+    const newNode = new NodeStr(val);
+
+    newNode.next = this.head
+
+    if (this.head === null) this.tail = newNode;
+
+    this.head = newNode;
+    this.length++;
   }
 
   /** pop(): return & remove last item.
