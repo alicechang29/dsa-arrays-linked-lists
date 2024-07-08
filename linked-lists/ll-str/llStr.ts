@@ -82,6 +82,7 @@ class LLStr {
       throw new IndexError();
     }
 
+    let poppedVal: string = '';
     //if non-empty list
     if(this.tail !== null){
       const currTail = this.tail;
@@ -96,8 +97,11 @@ class LLStr {
         }
         currNode = currNode.next;
       }
-      return currTail.val;
+       poppedVal =  currTail.val;
     }
+
+    this.length--;
+    return poppedVal;
   }
 
   /** shift(): return & remove first item.
@@ -106,7 +110,22 @@ class LLStr {
    **/
 
   shift(): string {
-    return "x";
+
+    if (this.head === null) throw new IndexError();
+
+    // first node in list
+    const currNode = this.head;
+
+    // if there is only one node in list at the start
+    if (currNode.next === null) {
+      this.head = null;
+      this.tail = null;
+    }
+
+    this.head = currNode.next;
+
+    length--;
+    return currNode.val;
   }
 
   /** getAt(idx): get val at idx.
