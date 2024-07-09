@@ -148,7 +148,7 @@ class LLStr {
     // if head is 0, traverse the list
 
     if(idx > this.length - 1 || idx < 0){
-      throw new IndexError;
+      throw new IndexError();
     }
 
     let count: number = 0;
@@ -191,6 +191,45 @@ class LLStr {
    **/
 
   insertAt(idx: number, val: string): void {
+
+    if (idx < 0 || idx > this.length) {
+      throw new IndexError();
+    }
+
+    const newNode = new NodeStr(val);
+
+    if(this.head === null){
+      this.head = newNode;
+      this.tail = newNode;
+    }
+
+    let currNode = this.head!; // b
+    let prevNode = currNode; //a
+
+    let currPlace = 0; // 1
+
+    while(currPlace < idx){ //[a, b]
+      console.log({prevNode, currNode, currPlace, idx});
+      prevNode = currNode;
+      currNode = currNode.next!; //val at index 1
+      currPlace++;
+      console.log({prevNode, currNode, currPlace});
+    }
+
+    if(currPlace === 0){
+      this.head = newNode;
+    }
+
+    if(currPlace === this.length){
+      this.tail = newNode;
+    }
+
+    prevNode.next = newNode;
+    newNode.next = currNode;
+    console.log({newNode});
+
+    this.length++;
+
   }
 
   /** removeAt(idx): return & remove item at idx,
