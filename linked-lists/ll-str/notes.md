@@ -2,6 +2,8 @@ start
 middle
 end of the list
 empty lists
+list only has 1 node inside
+
 
 
 Push:

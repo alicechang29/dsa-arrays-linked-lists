@@ -209,11 +209,9 @@ class LLStr {
     let currPlace = 0; // 1
 
     while(currPlace < idx){ //[a, b]
-      console.log({prevNode, currNode, currPlace, idx});
       prevNode = currNode;
       currNode = currNode.next!; //val at index 1
       currPlace++;
-      console.log({prevNode, currNode, currPlace});
     }
 
     if(currPlace === 0){
@@ -226,7 +224,6 @@ class LLStr {
 
     prevNode.next = newNode;
     newNode.next = currNode;
-    console.log({newNode});
 
     this.length++;
 
@@ -238,7 +235,46 @@ class LLStr {
    **/
 
   removeAt(idx: number): string {
-    return "x";
+    if (idx < 0 || idx > this.length || this.head === null || this.length === 0) {
+      throw new IndexError();
+    }
+
+    //prev node needs to point to removed item's next
+    let currNode = this.head!;
+    let prevNode = currNode;
+
+    let currPlace = 0;
+
+    while(currPlace < idx){
+      prevNode = currNode;
+      currNode = currNode.next!;
+      currPlace++;
+
+    }
+
+    const removedNode = currNode;
+    //if node is at head
+    if(currPlace === 0){
+      this.head = this.head.next;
+    }
+
+    //if item is tails
+    if(currPlace === this.length){
+      this.tail = prevNode;
+    }
+
+    //if list has only 1 item
+    if(this.length === 1){
+      this.head = null;
+      this.tail = null;
+    }
+
+    //if item in middle
+    prevNode.next = currNode.next;
+
+
+    this.length --;
+    return removedNode.val;
   }
 
   /** toArray (useful for tests!) */
